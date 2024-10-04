@@ -41,9 +41,9 @@ module.exports = () => {
         ],
         orientation: "portrait",
         display: "standalone",
-        start_url: "./",
         background_color: "#7eb4e2",
         theme_color: "#7eb4e2",
+        publicPath: ".",
       }),
     ],
 
