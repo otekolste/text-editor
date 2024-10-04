@@ -27,4 +27,26 @@ warmStrategyCache({
 registerRoute(({ request }) => request.mode === "navigate", pageCache);
 
 // TODO: Implement asset caching
-//registerRoute();
+// Cache CSS files using CacheFirst strategy
+registerRoute(
+  ({ request }) => request.destination === "style",
+  new CacheFirst({
+    cacheName: "css-cache",
+  })
+);
+
+// Cache JS files using CacheFirst strategy
+registerRoute(
+  ({ request }) => request.destination === "script",
+  new CacheFirst({
+    cacheName: "js-cache",
+  })
+);
+
+// Cache image files using CacheFirst strategy
+registerRoute(
+  ({ request }) => request.destination === "image",
+  new CacheFirst({
+    cacheName: "images-cache",
+  })
+);
