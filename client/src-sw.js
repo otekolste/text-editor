@@ -26,39 +26,23 @@ warmStrategyCache({
 
 registerRoute(({ request }) => request.mode === "navigate", pageCache);
 
-// TODO: Implement asset caching
-registerRoute(
-  ({ request }) => ["style"].includes(request.destination),
-  new CacheFirst({
-    cacheName: "style-cache",
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  })
-);
+// Creates cache to precache all static assets
+const assetCache = new CacheFirst({
+  cacheName: "asset-cache",
+  plugins: [
+    new CacheableResponsePlugin({
+      statuses: [0, 200],
+    }),
+    new ExpirationPlugin({
+      maxAgeSeconds: 30 * 24 * 60 * 60,
+    }),
+  ],
+});
 
-registerRoute(
-  ({ request }) => ["script"].includes(request.destination),
-  new CacheFirst({
-    cacheName: "script-cache",
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  })
-);
+registerRoute(({ request }) => request.mode === "navigate", pageCache);
 
+//Precaches all stylesheets, scripts, and web workers for offline useage
 registerRoute(
-  ({ request }) => ["worker"].includes(request.destination),
-  new CacheFirst({
-    cacheName: "worker-cache",
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  })
+  ({ request }) => ["style", "script", "worker"].includes(request.destination),
+  assetCache
 );
