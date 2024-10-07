@@ -3,7 +3,7 @@ import Editor from "./editor";
 import "./database";
 import "../css/style.css";
 import logo from "../images/logo.png";
-
+// Uses hot module reloading to render the image
 document.getElementById("logoSpot").src = logo;
 
 const main = document.querySelector("#main");

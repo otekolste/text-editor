@@ -3,14 +3,13 @@ const butInstall = document.getElementById("buttonInstall");
 // Tutorial referenced: https://web.dev/articles/codelab-make-installable
 
 // Logic for installing the PWA
-// TODO: Add an event handler to the `beforeinstallprompt` event
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   console.log("👍", "beforeinstallprompt", event);
-  window.deferredPrompt = event;
+  window.deferredPrompt = event; // Grabs reference to the installability event
 });
 
-// TODO: Implement a click event handler on the `butInstall` element
+// Logic for when user clicks on install button
 butInstall.addEventListener("click", async () => {
   const promptEvent = window.deferredPrompt;
   if (!promptEvent) {
@@ -26,8 +25,8 @@ butInstall.addEventListener("click", async () => {
   window.deferredPrompt = null;
 });
 
-// TODO: Add an handler for the `appinstalled` event
+// Logic for when the user has installed app
 window.addEventListener("appinstalled", (event) => {
   console.log("👍", "appinstalled", event);
-  window.deferredPrompt = null;
+  window.deferredPrompt = null; // Sets to null so it can be re-used if needed
 });

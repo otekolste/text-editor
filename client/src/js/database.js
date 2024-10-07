@@ -12,22 +12,22 @@ const initdb = async () =>
     },
   });
 
-// TODO: Add logic to a method that accepts some content and adds it to the database
+// Updates IndexedDB with content of text editor
 export const putDb = async (content) => {
-  const jateDb = await openDB("jate", 1);
-  const tx = jateDb.transaction("jate", "readwrite");
-  const store = tx.objectStore("jate");
-  const request = store.put({ jate: content });
+  const jateDb = await openDB("jate", 1); // Opens DB
+  const tx = jateDb.transaction("jate", "readwrite"); // Opens a transaction
+  const store = tx.objectStore("jate"); // Grabs reference to the object store
+  const request = store.put({ jate: content }); // Updates object store with the contents of the text editor
   const result = await request;
   console.log("Data saved to the database", result);
 };
 
-// TODO: Add logic for a method that gets all the content from the database
+// Gets all content from IndexedDB
 export const getDb = async () => {
-  const jateDb = await openDB("jate", 1);
-  const tx = jateDb.transaction("jate", "readonly");
-  const store = tx.objectStore("jate");
-  const request = store.getAll();
+  const jateDb = await openDB("jate", 1); // Opens DB
+  const tx = jateDb.transaction("jate", "readonly"); // Opens transaction
+  const store = tx.objectStore("jate"); // Grabs reference to the object store
+  const request = store.getAll(); // Gets all information in object store
   const result = await request;
   console.log(result);
 };
