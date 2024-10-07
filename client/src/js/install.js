@@ -6,7 +6,7 @@ const butInstall = document.getElementById("buttonInstall");
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   console.log("👍", "beforeinstallprompt", event);
-  window.deferredPrompt = event; // Grabs reference to the installability event
+  window.deferredPrompt = event; // Grabs reference to the installability event, which fires when app meets the criteria to be installed
 });
 
 // Logic for when user clicks on install button
@@ -23,6 +23,7 @@ butInstall.addEventListener("click", async () => {
   // Reset the deferred prompt variable, since
   // prompt() can only be called once.
   window.deferredPrompt = null;
+  butInstall.textContent = "Installed!";
 });
 
 // Logic for when the user has installed app
